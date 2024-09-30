@@ -160,7 +160,7 @@ const ReadOneHome = () => {
             <div className="w-3/5 border-t border-pink-500"></div>
           </div>
           <h1 className="text-white text-9xl font-light my-8">CUT &#8216;N&#8217; CURL</h1>
-          <h2 className="text-pink-500 text-6xl font-light tracking-wide">BASHI BRIDAL BEAUTY SALON</h2>
+          <h2 className="text-pink-500 text-6xl font-light tracking-wide animate-bounce ">BASHI BRIDAL BEAUTY SALON</h2>
         </div>
 
         <div id="about" className="relative bg-white py-16 px-8 md:px-16 min-h-screen animate-fadeIn">
@@ -179,7 +179,11 @@ const ReadOneHome = () => {
 
         {/* Products section */}
         <div id="products" className="bg-gray-200 py-16 px-8 md:px-16 min-h-screen w-[100%] rounded-t-[20%]">
-          <h3 className="text-5xl font-light text-pink-500 mb-16 text-center">Our Services</h3>
+        <h1 className="text-3xl font-bold text-center mb-8 text-black tracking-wide animate-bounce">
+            <span className="text-pink-500">
+              <strong>BEAUTY PRODUCT STORE</strong>
+            </span>
+        </h1>
           <HCard CusID={CusID} />
         </div>
 
