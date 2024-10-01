@@ -151,8 +151,12 @@ const Home = () => {
         </div>
 
         <div id="products" className="bg-gray-200 py-16 px-8 md:px-16 min-h-screen w-[100%] animate-fadeIn rounded-t-[20%]">
-          <h3 className="text-3xl font-light text-center mb-8 text-black">Products <span className="text-pink-500">&rhard;</span></h3>
-          <div className="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-8">
+          <h1 className="text-3xl font-bold text-center mb-8 text-black tracking-wide animate-bounce">
+              <span className="text-pink-500">
+                <strong>BEAUTY PRODUCT STORE</strong>
+              </span>
+          </h1>
+        <div className="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-8">
             <Card />
           </div>
         </div>
