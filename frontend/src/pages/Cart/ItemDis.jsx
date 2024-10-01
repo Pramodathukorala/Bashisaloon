@@ -92,9 +92,7 @@ const ItemDis = () => {
         }
     };
     
-    const handleBuyNow = () => {
-        // Placeholder for "Buy Now" functionality
-    };
+
 
     if (loading) {
         return <div>Loading...</div>;  // Display a loading message while data is being fetched
