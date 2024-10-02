@@ -76,7 +76,7 @@ import DeleteOrder from "./pages/Cart/DeleteOrder";
 
 import CreateFeedback from "./pages/Feedback/createfeedback";
 import UpdateFeedback from "./pages/Feedback/Updatefeedback";
-import ShowFeedback from "./pages/Feedback/showfeedback";
+import ShowFeedback from "./pages/Feedback/Showfeedback";
 import Readfeedback from "./pages/Feedback/Readfeedback";
 
 const App = () => {
