@@ -1,23 +1,30 @@
 import React from "react";
-import Logo from '../../images/logo.png'
+import Logo from '../../images/logo.png'; // Import the logo image
+import { Link } from "react-router-dom"; // Import Link for navigation
+
 const Sidebar = () => {
   return (
     <>
+      {/* Button for opening the sidebar (visible only on small screens) */}
       <button
-        data-drawer-target="logo-sidebar"
-        data-drawer-toggle="logo-sidebar"
-        aria-controls="logo-sidebar"
-        type="button"
-        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        data-drawer-target="logo-sidebar" // Accessibility: Specifies the sidebar as the target to open
+        data-drawer-toggle="logo-sidebar" // Toggles the sidebar visibility
+        aria-controls="logo-sidebar" // Specifies the control for accessibility
+        type="button" // Specifies the button type
+        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-700 rounded-lg sm:hidden hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 transition-all duration-200"
       >
+        {/* Hidden text for screen readers */}
         <span className="sr-only">Open sidebar</span>
+        
+        {/* SVG icon for the sidebar toggle button */}
         <svg
           className="w-6 h-6"
-          aria-hidden="true"
+          aria-hidden="true" // Accessibility: Hides this icon from screen readers
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
         >
+          {/* Three horizontal lines representing the hamburger menu icon */}
           <path
             clipRule="evenodd"
             fillRule="evenodd"
@@ -26,83 +33,84 @@ const Sidebar = () => {
         </svg>
       </button>
 
+      {/* Sidebar container */}
       <aside
-        id="logo-sidebar"
-        className="fixed top-0 left-0 z-40 w-50 h-screen transition-transform -translate-x-full sm:translate-x-0"
-        aria-label="Sidebar"
+        id="logo-sidebar" // Sidebar ID to match the toggle target
+        className="fixed top-0 left-0 z-40 w-60 h-screen transition-transform -translate-x-full sm:translate-x-0 shadow-lg bg-gradient-to-b from-pink-800 to-pink-300" // Sidebar hidden by default on small screens
+        aria-label="Sidebar" // Accessibility: Describes the element as a sidebar
       >
-        <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-pink-700">
-        <a href="" className="flex items-center space-x-3 rtl:space-x-reverse ml-12">
-        <img 
-        src={Logo} 
-        alt="logo" 
-        style={{ width: '30px', height: '30px', borderRadius: '50%' }} 
-      />
-          <span className=" text-white self-center text-xl font-bold whitespace-nowrap dark:text-">Bashi</span>
-        </a>
-          <ul className="space-y-2 font-medium mt-10">
+        {/* Sidebar content: scrollable with overflow-y-auto */}
+        <div className="h-full px-4 py-6 overflow-y-auto">
+          
+          {/* Sidebar logo with link */}
+          <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse mb-6">
+            {/* Logo image */}
+            <img
+              src={Logo}
+              alt="logo" // Accessibility: Logo image description
+              className="w-10 h-10 rounded-full shadow-lg"
+            />
+            {/* Logo text */}
+            <span className="text-white self-center text-2xl font-bold whitespace-nowrap">Salon Bashi</span>
+          </a>
+
+          {/* Sidebar navigation links */}
+          <ul className="space-y-4 font-medium">
+            {/* Dashboard Link */}
             <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              <Link
+                to="#"
+                className="flex items-center p-4 rounded-lg text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 group relative"
               >
+                {/* Dashboard icon */}
                 <svg
-                  className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-7 h-7 text-gray-800 transition duration-75 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white transform group-hover:scale-110"
+                  aria-hidden="true" // Hides the icon from screen readers
                   fill="currentColor"
                   viewBox="0 0 22 21"
                 >
                   <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
                   <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
                 </svg>
-                <span className="ms-3">Dashboard</span>
-              </a>
+                {/* Dashboard text */}
+                <span className="ml-4 text-xl font-semibold text-gray-900 dark:text-white">Dashboard</span>
+
+                {/* Left highlight bar that appears on hover */}
+                <span className="absolute left-0 h-full w-1 bg-pink-600 rounded-lg transition-all duration-200 transform scale-0 group-hover:scale-100"></span>
+              </Link>
             </li>
+
+            {/* Logout Link */}
             <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              <Link
+                to="/"
+                className="flex items-center p-4 rounded-lg text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 group relative"
               >
+                {/* Logout icon */}
                 <svg
-                  className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 18 18"
-                >
-                  <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
-                </svg>
-                <span className="flex-1 ms-3 whitespace-nowrap">Kanban</span>
-               
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <svg
-                  className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-7 h-7 text-gray-800 transition duration-75 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white transform group-hover:scale-110"
+                  aria-hidden="true" // Hides the icon from screen readers
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
-                  <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z" />
+                  <path
+                    fillRule="evenodd"
+                    d="M3 4a1 1 0 011-1h6a1 1 0 100-2H4a3 3 0 00-3 3v12a3 3 0 003 3h6a1 1 0 100-2H4a1 1 0 01-1-1V4zm10.293 5.707a1 1 0 010-1.414l3-3a1 1 0 111.414 1.414L15.414 9H9a1 1 0 000 2h6.414l2.293 2.293a1 1 0 01-1.414 1.414l-3-3z"
+                    clipRule="evenodd"
+                  />
                 </svg>
-                <span className="flex-1 ms-3 whitespace-nowrap">Inbox</span>
-                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-pink-500 bg-blue-100 rounded-full dark:bg-pink-500 dark:text-white">
-                  3
-                </span>
-              </a>
+                {/* Logout text */}
+                <span className="ml-4 text-xl font-semibold text-gray-900 dark:text-white">Logout</span>
+
+                {/* Left highlight bar that appears on hover */}
+                <span className="absolute left-0 h-full w-1 bg-pink-600 rounded-lg transition-all duration-200 transform scale-0 group-hover:scale-100"></span>
+              </Link>
             </li>
+
             {/* Add more sidebar items as needed */}
           </ul>
         </div>
       </aside>
-
-      
     </>
   );
 };
