@@ -1,52 +1,56 @@
 import express from 'express';
-import { EmployeeAttendence } from '../Models/EmployeeAttendence.js';
+import { EmployeeSalary } from '../Models/EmployeeSalary.js';
 
 const router = express.Router();
 
-// Route for Save a new EmployeeAttendence
+// Route for Save a new EmployeeSalary
 router.post('/', async (request, response) => {
   try {
     if (
       !request.body.EmpID ||
       !request.body.employeeName ||
-      !request.body.date 
-      //!request.body.InTime ||
-      //!request.body.OutTime 
-      //!request.body.OThours 
+      !request.body.fromDate ||
+      !request.body.toDate 
+      // !request.body.totalOThours ||
+      // !request.body.totalOTpay ||
+      // !request.body.totalWorkedhours ||
+      // !request.body.totalWorkedpay ||
+      // !request.body.TotalSalary
 
     ) {
       return response.status(400).send({
-        message: 'Send all required fields: EmpID, employeeName, date, InTime, OutTime, OThours',
+        message: 'Send all required fields: EmpID, employeeName, fromDate,toDate, totalOThours, totalOTpay, totalWorkedpay,TotalSalary',
       });
     }
-    const newEmployeeAttendence = {
+    const newEmployeeSalary = {
       EmpID: request.body.EmpID,
       employeeName: request.body.employeeName,
-      date: request.body.date,
-      InTime: request.body.InTime || null,  // Set to null if not provided
-      OutTime: request.body.OutTime || null,  // Set to null if not provided
-      WorkingHours: request.body.WorkingHours || null,
-      OThours: request.body.OThours || null,
-      
+      fromDate: request.body.fromDate,
+      toDate: request.body.toDate,
+      totalOThours: request.body.totalOThours || null,
+      totalOTpay: request.body.totalOTpay || null,
+      totalWorkedhours: request.body.totalWorkedhours || null,
+      totalWorkedpay: request.body.totalWorkedpay || null,
+      TotalSalary: request.body.TotalSalary || null,
     };
 
-    const employeeAttendence = await EmployeeAttendence.create(newEmployeeAttendence);
+    const EmployeeSalaries = await EmployeeSalary.create(newEmployeeSalary);
 
-    return response.status(201).send(employeeAttendence);
+    return response.status(201).send(EmployeeSalaries);
   } catch (error) {
     console.log(error.message);
     response.status(500).send({ message: error.message });
   }
 });
 
-// Route for Get All EmployeeAttendence from database
+// Route for Get All EmployeeSalary from database
 router.get('/', async (request, response) => {
   try {
-    const employeesattendence = await EmployeeAttendence.find({});
+    const EmployeeSalaries = await EmployeeSalary.find({});
 
     return response.status(200).json({
-      count: employeesattendence.length,
-      data: employeesattendence,
+      count: EmployeeSalaries.length,
+      data: EmployeeSalaries,
     });
   } catch (error) {
     console.log(error.message);
@@ -54,71 +58,60 @@ router.get('/', async (request, response) => {
   }
 });
 
-// Route for Get One EmployeeAttendence from database by id
+// Route for Get One Employee from database by id
 router.get('/:id', async (request, response) => {
   try {
     const { id } = request.params;
 
-    const employeeAttendence = await EmployeeAttendence.findById(id);
+    const EmployeeSalaries = await EmployeeSalary.findById(id);
 
-    return response.status(200).json(employeeAttendence);
+    return response.status(200).json(EmployeeSalaries);
   } catch (error) {
     console.log(error.message);
     response.status(500).send({ message: error.message });
   }
 });
 
-// Route for getting all attendance records of one employee from the database by employee ID
-// router.get('/:id', async (request, response) => {
-//     try {
-//       const { id } = request.params;
-  
-//       const employeeAttendances = await EmployeeAttendence.find({ EmpID: id });
-  
-//       return response.status(200).json(employeeAttendances);
-//     } catch (error) {
-//       console.error(error.message);
-//       response.status(500).send({ message: 'Error retrieving employee attendance' });
-//     }
-//   });
-  
 // Route for Update an employee
 router.put('/:id', async (request, response) => {
   try {
-    const id = request.params.id;
-    const existingAttendance = await EmployeeAttendence.findById(id);
+    const {
+      EmpID,
+      employeeName,
+      fromDate,
+      toDate,
+      totalOThours,
+      totalOTpay,
+      totalWorkedhours,
+      totalWorkedpay,
+      TotalSalary
+    } = request.body;
 
-    if (!existingAttendance) {
-      return response.status(404).send({ message: 'Attendance record not found' });
-    }
-
-    // Update only the fields that are provided in the request body
-    if (request.body.EmpID) {
-      existingAttendance.EmpID = request.body.EmpID;
-    }
-    if (request.body.employeeName) {
-      existingAttendance.employeeName = request.body.employeeName;
-    }
-    if (request.body.date) {
-      existingAttendance.date = request.body.date;
-    }
-    if (request.body.hasOwnProperty('InTime')) {
-      existingAttendance.InTime = request.body.InTime;
-    }
-    if (request.body.hasOwnProperty('OutTime')) {
-      existingAttendance.OutTime = request.body.OutTime;
-    }
-    if (request.body.hasOwnProperty('WorkingHours')) {
-      existingAttendance.WorkingHours = request.body.WorkingHours;
-    }
-    if (request.body.hasOwnProperty('OThours')) {
-      existingAttendance.OThours = request.body.OThours;
+    if (
+      !EmpID ||
+      !employeeName ||
+      !fromDate ||
+      !toDate ||
+      totalOThours === undefined ||
+      totalOTpay === undefined ||
+      totalWorkedhours === undefined ||
+      totalWorkedpay === undefined ||
+      TotalSalary === undefined
+    ) {
+      return response.status(400).send({
+        message: 'Send all required fields: EmpID, employeeName, fromDate, toDate, totalOThours, totalOTpay, totalWorkedpay, TotalSalary',
+      });
     }
 
-    // Save the updated attendance record
-    const updatedAttendance = await existingAttendance.save();
+    const { id } = request.params;
 
-    return response.status(200).send(updatedAttendance);
+    const result = await EmployeeSalary.findByIdAndUpdate(id, request.body);
+
+    if (!result) {
+      return response.status(404).json({ message: 'EmployeeSalary not found' });
+    }
+
+    return response.status(200).send({ message: 'EmployeeSalary updated successfully' });
   } catch (error) {
     console.log(error.message);
     response.status(500).send({ message: error.message });
@@ -126,90 +119,50 @@ router.put('/:id', async (request, response) => {
 });
 
 
-
-
-// Route for updating employee attendance
-// router.put('/:EmpID/:date', async (request, response) => {
-//   try {
-//     const { EmpID, date } = request.params;
-
-//     // Check if the request body contains required fields for updating attendance
-//     if (
-//       !request.body.InTime ||
-//       !request.body.OutTime ||
-//       !request.body.OThours
-//     ) {
-//       return response.status(400).send({
-//         message: 'Send all required fields: InTime, OutTime, OThours',
-//       });
-//     }
-
-//     const { InTime, OutTime, OThours } = request.body;
-
-//     // Find the employee attendance record by EmpID and date and update it
-//     const result = await EmployeeAttendence.findOneAndUpdate(
-//       { EmpID: EmpID, date: date },
-//       { InTime: InTime, OutTime: OutTime, OThours: OThours },
-//       { new: true }
-//     );
-
-//     if (!result) {
-//       return response.status(404).json({ message: 'Attendance record not found' });
-//     }
-
-//     return response.status(200).send({ message: 'Attendance record updated successfully' });
-//   } catch (error) {
-//     console.log(error.message);
-//     response.status(500).send({ message: error.message });
-//   }
-// });
-
-  
-
-// Route for Delete an employeeAttendence
+// Route for Delete an employee
 router.delete('/:id', async (request, response) => {
   try {
     const { id } = request.params;
 
-    const result = await EmployeeAttendence.findByIdAndDelete(id);
+    const result = await EmployeeSalary.findByIdAndDelete(id);
 
     if (!result) {
-      return response.status(404).json({ message: 'Employee not found' });
+      return response.status(404).json({ message: 'EmployeeSalary not found' });
     }
 
-    return response.status(200).send({ message: 'Employee deleted successfully' });
+    return response.status(200).send({ message: 'EmployeeSalary deleted successfully' });
   } catch (error) {
     console.log(error.message);
     response.status(500).send({ message: error.message });
   }
 });
-  
 
-// GET route for retrieving EmployeeAttendence based on search criteria, pagination, and sorting
-router.get("/searchEmployeeAttendence", async (req, res) => {
+// GET route for retrieving EmployeeSalary based on search criteria, pagination, and sorting
+router.get("/searchEmployeeSalary", async (req, res) => {
   try {
     // Destructuring the request query with default values
-    const { page = 1, limit = 7, search = "", sort = "EmpID" } = req.query;
+    const { page = 1, limit = 8, search = "", sort = "EmpID" } = req.query;
     const skip = (parseInt(page) - 1) * parseInt(limit);
     // Regular expression for case-insensitive search
     const query = {
       $or: [
         { EmpID: { $regex: new RegExp(search, 'i') } }, // Using RegExp instead of directly passing $regex
         { employeeName: { $regex: new RegExp(search, 'i') } },
-        { date: { $regex: new RegExp(search, 'i') } },
-        { InTime: { $regex: new RegExp(search, 'i') } },
-        { OutTime: { $regex: new RegExp(search, 'i') } },
-        { WorkingHours: { $regex: new RegExp(search, 'i') } },
-        { OThours: { $regex: new RegExp(search, 'i') } },
-        
+        { fromDate: { $regex: new RegExp(search, 'i') } },
+        { toDate: { $regex: new RegExp(search, 'i') } },
+        { totalOThours: { $regex: new RegExp(search, 'i') } },
+        { totalOTpay: { $regex: new RegExp(search, 'i') } },
+        { totalWorkedhours: { $regex: new RegExp(search, 'i') } },
+        { totalWorkedpay: { $regex: new RegExp(search, 'i') } },
+        { TotalSalary: { $regex: new RegExp(search, 'i') } },
       ],
     };
     // Using await to ensure that sorting and pagination are applied correctly
-    const employeesAttendence = await EmployeeAttendence.find(query)
+    const EmployeeSalary = await EmployeeSalary.find(query)
       .sort({ [sort]: 1 }) // Sorting based on the specified field
       .skip(skip)
       .limit(parseInt(limit));
-    res.status(200).json({ count: employeesAttendence.length, data: employeesAttendence });
+    res.status(200).json({ count: EmployeeSalary.length, data: EmployeeSalary });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ error: true, message: "Internal Server Error" });
