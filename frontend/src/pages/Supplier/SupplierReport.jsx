@@ -9,8 +9,8 @@ const SupplierReport = ({ filteredSuppliers }) => {
             "No",
             "Supplier ID",
             "Supplier Name",
-            "Item No",
-            "Item Name",
+            "Item No(s)",
+            "Item Name(s)",
             "Contact No",
             "Email",
             "Address"
@@ -18,12 +18,16 @@ const SupplierReport = ({ filteredSuppliers }) => {
         const tableRows = [];
 
         filteredSuppliers.forEach((supplier, index) => {
+            // Map the items array to create a list of item numbers and names
+            const itemNumbers = supplier.Items.map(item => item.ItemNo).join(", ");
+            const itemNames = supplier.Items.map(item => item.ItemName).join(", ");
+            
             const data = [
                 index + 1,
                 supplier.SupplierID,
                 supplier.SupplierName,
-                supplier.ItemNo,
-                supplier.ItemName,
+                itemNumbers,  // Display all item numbers as a comma-separated list
+                itemNames,    // Display all item names as a comma-separated list
                 supplier.ContactNo,
                 supplier.Email,
                 supplier.Address
@@ -74,7 +78,7 @@ const SupplierReport = ({ filteredSuppliers }) => {
 
         // Send email alert to supplier manager
         const emailSubject = encodeURIComponent('Supplier Report Generated');
-        const emailBody = encodeURIComponent(`Dear Supplier Manager,\n\nThe supplier report has been generated.\n\nBest regards,\nYour Company`);
+        const emailBody = encodeURIComponent(`Dear Supplier Manager,\n\nThe supplier report has been generated.\n\nBest regards,\nSalon Bashi`);
         const emailRecipient = encodeURIComponent('suppliermanager@gmail.com');
         const mailtoLink = `mailto:${emailRecipient}?subject=${emailSubject}&body=${emailBody}`;
         
@@ -82,10 +86,10 @@ const SupplierReport = ({ filteredSuppliers }) => {
     };
 
     return (
-        <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-100 rounded-lg group bg-gradient-to-br from-pink-800 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-black focus:ring-4 focus:outline-none focus:ring-purple-200 ">
-        <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-100 rounded-md group-hover:bg-opacity-0" onClick={generatePDF} >
-        Generate Report
-        </span>
+        <button className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-100 rounded-lg group bg-gradient-to-br from-pink-800 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-black focus:ring-4 focus:outline-none focus:ring-purple-200">
+            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-100 rounded-md group-hover:bg-opacity-0" onClick={generatePDF}>
+                Generate Report
+            </span>
         </button>
     );
 };
