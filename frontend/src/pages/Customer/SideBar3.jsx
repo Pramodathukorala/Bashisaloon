@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from '../../images/logo.png'
-const Sidebar2 = () => {
+const Sidebar3 = () => {
   return (
     <>
       <button
@@ -43,36 +43,24 @@ const Sidebar2 = () => {
           <ul className="space-y-2 font-medium mt-10">
             <li>
               <a
-                href="#"
+                href="/"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
-                
+                Log out
                 <span className="ms-3"></span>
               </a>
             </li>
             <li>
             <button
                             className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-100 rounded-lg group bg-gradient-to-br from-blue-900 to-blue-500 group-hover:to-blue-500 hover:text-white"
-                            onClick={() => (window.location.href = "order/${CusID}")}
+                            onClick={() => (window.location.href = "/customers/create")}
                           
                         >
                             <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-black rounded-md group-hover:bg-opacity-0">
-                               My Orders
+                                Add Customer
                             </span>
                         </button>
             </li>
-            <li>
-            <button
-                            className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-100 rounded-lg group bg-gradient-to-br from-blue-900 to-blue-500 group-hover:to-green-500 hover:text-white"
-                            onClick={() => (window.location.href = "/allorders")}
-                         
-                        >
-                            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-black rounded-md group-hover:bg-opacity-0">
-                               Appointments
-                            </span>
-                        </button>
-            </li>
-            {/* Add more sidebar items as needed */}
           </ul>
         </div>
       </aside>
@@ -82,4 +70,4 @@ const Sidebar2 = () => {
   );
 };
 
-export default Sidebar2;
+export default Sidebar3;
