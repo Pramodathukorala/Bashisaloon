@@ -3,6 +3,7 @@ import axios from "axios"; // Import axios for making HTTP requests
 import Swal from "sweetalert2"; // Import SweetAlert2 for displaying alerts
 import Spinner from "../../components/Spinner"; // Import a custom Spinner component for loading indication
 import BackButton from "../../components/BackButton"; // Import a custom BackButton component for navigation
+import servicePC from '../../images/service.jpg'; // Import the background image for the page
 
 const AllOrders = () => {
     const [orders, setOrders] = useState([]); // Initialize state for orders, initially an empty array
@@ -84,7 +85,12 @@ const AllOrders = () => {
     };
 
     return (
-        <div className="min-h-screen p-8 w-full lg:w-3/4 mx-auto"> {/* Main container with padding and responsive width */}
+        <div 
+            className="min-h-screen bg-cover bg-center" 
+            style={{ backgroundImage: `url(${servicePC})` }} // Apply background image to the page
+        >
+            <div className='bg-white bg-opacity-50 min-h-screen'> {/* Overlay to increase readability */}
+        <div className="min-h-screen   p-8 w-full lg:w-3/4 mx-auto"> {/* Main container with padding and responsive width */}
             <BackButton destination={`/store`} /> {/* Back button to navigate to the store page */}
 
             <h1 className="text-3xl font-bold mb-6">All Orders</h1> {/* Page title */}
@@ -94,10 +100,10 @@ const AllOrders = () => {
                 orders.map((order) => ( // Iterate over the orders array
                     <div
                         key={order.orderId} // Unique key for each order
-                        className="border border-gray-300 p-4 mb-4 rounded-lg shadow-md relative" // Styling for the order card
+                        className="border bg-gradient-to-b from-pink-300 to-white border-gray-900 p-4 mb-4 rounded-lg shadow-md relative" // Styling for the order card
                     >
                         <h2 className="text-xl font-semibold mb-2">Order ID: {order.orderId}</h2> {/* Display the order ID */}
-                        <p className="text-gray-600 mt-2">
+                        <p className="text-xl-600 mt-2">
                             Order Date: {new Date(order.createdAt).toLocaleDateString()} {/* Format and display order date */}
                         </p>
                         <div className="flex space-x-4 mt-4"> {/* Flexbox for displaying ordered items */}
@@ -195,6 +201,8 @@ const AllOrders = () => {
             ) : (
                 <p className="text-center">No orders found</p> // Display message if no orders are available
             )}
+        </div>
+        </div>
         </div>
     );
 };
